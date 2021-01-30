@@ -1,0 +1,20 @@
+{
+  "name": "require-approved-pull-request-action",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manuelmeister/require-approved-pull-request-action.git"
+  },
+  "keywords": [],
+  "author": "Manuel Meister",
+  "license": "AGPL",
+  "bugs": {
+    "url": "https://github.com/manuelmeister/require-approved-pull-request-action/issues"
+  },
+  "homepage": "https://github.com/manuelmeister/require-approved-pull-request-action#readme"
+}
