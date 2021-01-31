@@ -38,7 +38,7 @@ async function run() {
         if (number_of_approvals >= minimum_approvals) {
             info(`This Pull Request has enough approvals to be merged`);
         } else {
-            setFailed(`This Pull Request need at least '${minimum_approvals}' approval(s)`);
+            setFailed(`This Pull Request needs at least '${minimum_approvals}' approval(s)`);
         }
     } catch (e) {
         setFailed(`Exception: ${e}`);
