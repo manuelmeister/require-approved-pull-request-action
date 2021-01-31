@@ -4459,40 +4459,45 @@ var require_github = __commonJS((exports2) => {
 var import_core = __toModule(require_core());
 var import_github = __toModule(require_github());
 async function run() {
-  if (import_github.context.eventName !== "pull_request") {
-    import_core.setFailed(`Invalid event: ${import_github.context.eventName}, it should be use on pull_request`);
+  try {
+    if (import_github.context.eventName !== "pull_request") {
+      import_core.setFailed(`Invalid event: ${import_github.context.eventName}, it should be use on pull_request`);
+      return;
+    }
+    const minimum_approvals = Number.parseInt(import_core.getInput("minimum_approvals"), 10);
+    if (Number.isNaN(minimum_approvals) || minimum_approvals < 1) {
+      import_core.setFailed(`Invalid input count of input.minimum_approvals`);
+    }
+    const token = import_core.getInput("token");
+    const kit = import_github.getOctokit(token);
+    const reviews = await kit.pulls.listReviews({
+      ...import_github.context.repo,
+      pull_number: import_github.context.payload.pull_request.number
+    });
+    const currentUserReviews = new Map();
+    reviews.data.forEach((review) => {
+      currentUserReviews.set(review.user.id, review.state);
+    });
+    const userReviewsStates = Array.from(currentUserReviews.values());
+    if (userReviewsStates.includes("REQUEST_CHANGES")) {
+      import_core.setFailed("Please implement the requested changes or dismiss the review");
+      return;
+    }
+    if (userReviewsStates.includes("PENDING")) {
+      import_core.warning("Warning: There are pending reviews");
+    }
+    const number_of_approvals = userReviewsStates.filter((status) => status === "APPROVED").length;
+    if (number_of_approvals >= minimum_approvals) {
+      import_core.info(`This Pull Request has enough approvals to be merged`);
+    } else {
+      import_core.setFailed(`This Pull Request needs at least '${minimum_approvals}' approval(s)`);
+    }
+    return;
+  } catch (e) {
+    import_core.setFailed(`Exception: ${e}`);
     return;
   }
-  const minimum_approvals = Number.parseInt(import_core.getInput("minimum_approvals"), 10);
-  if (Number.isNaN(minimum_approvals) || minimum_approvals < 1) {
-    import_core.setFailed(`Invalid input count of input.minimum_approvals`);
-  }
-  const kit = import_github.getOctokit(process.env.GITHUB_TOKEN);
-  const reviews = await kit.pulls.listReviews({
-    ...import_github.context.repo,
-    pull_number: import_github.context.payload.pull_request.number
-  });
-  const currentUserReviews = new Map();
-  reviews.data.forEach((review) => {
-    currentUserReviews.set(review.user.id, review.state);
-  });
-  const userReviewsStates = Array.from(currentUserReviews.values());
-  if (userReviewsStates.includes("REQUEST_CHANGES")) {
-    import_core.setFailed("Please implement the requested changes or dismiss the review");
-    return;
-  }
-  if (userReviewsStates.includes("PENDING")) {
-    import_core.warning("Warning: There are pending reviews");
-  }
-  const number_of_approvals = userReviewsStates.filter((status) => status === "APPROVED").length;
-  if (number_of_approvals >= minimum_approvals) {
-    import_core.info(`This Pull Request has enough approvals to be merged`);
-  } else {
-    import_core.setFailed(`This Pull Request need at least '${minimum_approvals}' approval(s)`);
-  }
 }
-try {
-  run();
-} catch (e) {
-  import_core.setFailed(`Exception: ${e}`);
-}
+run().catch((reason) => {
+  import_core.setFailed(`Exception: ${reason}`);
+});

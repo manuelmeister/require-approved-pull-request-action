@@ -1,6 +1,6 @@
 {
   "name": "require-approved-pull-request-action",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Use this instead of the branch protection rules",
   "main": "main.js",
   "scripts": {
