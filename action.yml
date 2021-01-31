@@ -1,6 +1,9 @@
 name: 'Require Pull Request approvals'
 description: 'Use this instead of the branch protection rules'
 inputs:
+  token:
+    description: 'Token to authenticate with when connecting to Github'
+    required: true
   minimum_approvals:
     description: 'Minimum approvals'
     required: false
