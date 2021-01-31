@@ -1,7 +1,7 @@
 {
   "name": "require-approved-pull-request-action",
   "version": "0.0.1",
-  "description": "",
+  "description": "Use this instead of the branch protection rules",
   "main": "main.js",
   "scripts": {
     "build": "esbuild main.ts --bundle --platform=node --target=node12 --outfile=dist/main.js"
