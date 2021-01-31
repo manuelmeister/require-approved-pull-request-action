@@ -1,5 +1,5 @@
-name: 'Require PR approvals'
-description: ''
+name: 'Require Pull Request approvals'
+description: 'Use this instead of the branch protection rules'
 inputs:
   minimum_approvals:
     description: 'Minimum approvals'
