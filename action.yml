@@ -1,0 +1,16 @@
+name: 'Require PR approvals'
+description: ''
+inputs:
+  minimum_approvals:
+    description: 'Minimum approvals'
+    required: false
+    default: '2'
+outputs:
+  approved:
+    description: 'Is Pull Request approved'
+runs:
+  using: 'node12'
+  main: 'dist/main.js'
+branding:
+  icon: 'check-circle'
+  color: 'green'

@@ -1,10 +1,10 @@
 {
   "name": "require-approved-pull-request-action",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "esbuild main.ts --bundle --platform=node --target=node12 --outfile=dist/main.js"
   },
   "repository": {
     "type": "git",
@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/manuelmeister/require-approved-pull-request-action/issues"
   },
-  "homepage": "https://github.com/manuelmeister/require-approved-pull-request-action#readme"
+  "homepage": "https://github.com/manuelmeister/require-approved-pull-request-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.8.38"
+  }
 }
