@@ -13,7 +13,8 @@ async function run() {
             setFailed(`Invalid input count of input.minimum_approvals`);
         }
 
-        const kit = getOctokit(getInput('token'));
+        const token = getInput("token");
+        const kit = getOctokit(token);
         const reviews = await kit.pulls.listReviews({
             ...context.repo,
             pull_number: context.payload.pull_request.number
