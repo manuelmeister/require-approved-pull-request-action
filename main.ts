@@ -41,9 +41,13 @@ async function run() {
         } else {
             setFailed(`This Pull Request needs at least '${minimum_approvals}' approval(s)`);
         }
+        return;
     } catch (e) {
         setFailed(`Exception: ${e}`);
+        return
     }
 }
 
-run();
+run().catch((reason) => {
+    setFailed(`Exception: ${reason}`)
+})
