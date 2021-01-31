@@ -13,7 +13,8 @@ async function run() {
             setFailed(`Invalid input count of input.minimum_approvals`);
         }
 
-        const kit = getOctokit(getInput('token'));
+        const token = getInput("token");
+        const kit = getOctokit(token);
         const reviews = await kit.pulls.listReviews({
             ...context.repo,
             pull_number: context.payload.pull_request.number
@@ -38,11 +39,15 @@ async function run() {
         if (number_of_approvals >= minimum_approvals) {
             info(`This Pull Request has enough approvals to be merged`);
         } else {
-            setFailed(`This Pull Request need at least '${minimum_approvals}' approval(s)`);
+            setFailed(`This Pull Request needs at least '${minimum_approvals}' approval(s)`);
         }
+        return;
     } catch (e) {
         setFailed(`Exception: ${e}`);
+        return
     }
 }
 
-run();
+run().catch((reason) => {
+    setFailed(`Exception: ${reason}`)
+})
