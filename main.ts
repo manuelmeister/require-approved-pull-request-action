@@ -26,7 +26,7 @@ async function run() {
         })
         const userReviewsStates = Array.from(currentUserReviews.values());
 
-        if (userReviewsStates.includes('REQUEST_CHANGES')) {
+        if (userReviewsStates.includes('CHANGES_REQUESTED')) {
             setFailed('Please implement the requested changes or dismiss the review');
             return;
         }

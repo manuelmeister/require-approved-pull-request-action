@@ -4479,7 +4479,7 @@ async function run() {
       currentUserReviews.set(review.user.id, review.state);
     });
     const userReviewsStates = Array.from(currentUserReviews.values());
-    if (userReviewsStates.includes("REQUEST_CHANGES")) {
+    if (userReviewsStates.includes("CHANGES_REQUESTED")) {
       import_core.setFailed("Please implement the requested changes or dismiss the review");
       return;
     }
