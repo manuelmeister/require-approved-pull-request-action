@@ -3,8 +3,8 @@ import {context, getOctokit} from '@actions/github';
 
 async function run() {
     try {
-        if (context.eventName !== 'pull_request') {
-            setFailed(`Invalid event: ${context.eventName}, it should be use on pull_request`);
+        if (context.eventName !== 'pull_request_review') {
+            setFailed(`Invalid event: ${context.eventName}, it should be use on pull_request_review`);
             return;
         }
 
