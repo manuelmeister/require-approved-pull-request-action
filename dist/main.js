@@ -4459,9 +4459,10 @@ var require_github = __commonJS((exports2) => {
 var import_core = __toModule(require_core());
 var import_github = __toModule(require_github());
 async function run() {
+  var _a, _b;
   try {
-    if (import_github.context.eventName !== "pull_request_review") {
-      import_core.setFailed(`Invalid event: ${import_github.context.eventName}, it should be use on pull_request_review`);
+    if (((_b = (_a = import_github.context.payload) == null ? void 0 : _a.pull_request) == null ? void 0 : _b.number) === void 0) {
+      import_core.setFailed(`Invalid event: ${import_github.context.eventName}, payload.pull_request.number is undefined`);
       return;
     }
     const minimum_approvals = Number.parseInt(import_core.getInput("minimum_approvals"), 10);
