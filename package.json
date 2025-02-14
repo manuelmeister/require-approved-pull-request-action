@@ -19,7 +19,7 @@
   "homepage": "https://github.com/manuelmeister/require-approved-pull-request-action#readme",
   "dependencies": {
     "@actions/core": "^1.2.6",
-    "@actions/github": "^4.0.0"
+    "@actions/github": "^6.0.0"
   },
   "devDependencies": {
     "esbuild": "^0.8.38"
